@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveNow - Car Booking Website</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f6fa;
+            color: #172033;
+        }
+
+        /* NAVBAR */
+
+        header {
+            background: #101b35;
+            color: white;
+            padding: 20px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffb703;
+        }
+
+        nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 9px;
+        }
+
+        nav a:hover {
+            color: #ffb703;
+        }
+
+        button {
+            background: #ffb703;
+            color: #101b35;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e7a500;
+        }
+
+        select,
+        input,
+        textarea {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 480px;
+            background:
+                linear-gradient(#101b358c, #101b358c),
+                url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1500") center/cover;
+            display: flex;
+            align-items: center;
+            padding: 60px 8%;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #ffb703;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        /* GENERAL SECTIONS */
+
+        section {
+            padding: 65px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            background: white;
+            width: 90%;
+            margin: -35px auto 30px;
+            position: relative;
+            padding: 25px;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+            box-shadow: 0 5px 20px #0001;
+        }
+
+        /* CARS */
+
+        .car-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px #0001;
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .car-info {
+            padding: 20px;
+        }
+
+        .car-info h3 {
+            margin: 12px 0;
+            font-size: 22px;
+        }
+
+        .car-info p {
+            color: #777;
+            margin-bottom: 12px;
+        }
+
+        .car-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price {
+            color: #d99500;
+            font-weight: bold;
+        }
+
+        /* BOOKING */
+
+        .panel {
+            max-width: 850px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px #0001;
+        }
+
+        .panel h2 {
+            margin-bottom: 20px;
+        }
+
+        .booking-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .booking-form label {
+            font-weight: bold;
+        }
+
+        .booking-form button {
+            width: 100%;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* DASHBOARD */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: #101b35;
+            color: white;
+            text-align: center;
+            padding: 25px 10px;
+            border-radius: 8px;
+        }
+
+        .stat-card h3 {
+            color: #ffb703;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        /* BOOKING HISTORY */
+
+        .booking-card {
+            border: 1px solid #ddd;
+            border-left: 5px solid #ffb703;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 7px;
+            line-height: 1.9;
+        }
+
+        .booking-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .cancel {
+            background: #dc3545;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .approve {
+            background: #16834b;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .reject {
+            background: #dc3545;
+            color: white;
+            margin-top: 10px;
+        }
+
+        /* GPS */
+
+        .map-box {
+            margin-top: 25px;
+        }
+
+        .map-box iframe {
+            width: 100%;
+            height: 350px;
+            border: none;
+            margin-top: 15px;
+        }
+
+        /* REVIEWS */
+
+        .review-card {
+            background: #f4f6fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 7px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #101b35;
+            color: white;
+            text-align: center;
+            padding: 40px 15px;
+            line-height: 2;
+        }
+
+        footer span {
+            color: #ffb703;
+        }
+
+        .notice {
+            background: #fff0bd;
+            color: #664600;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media(max-width: 850px) {
+            .car-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            header {
+                justify-content: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .car-container,
+            .form-grid,
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            section {
+                padding: 40px 5%;
+            }
+
+            .panel {
+                margin: 20px 10px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header>
+        <div class="logo">Drive<span>Now.</span></div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#cars">Cars</a>
+            <a href="#booking">Booking</a>
+            <a href="#history">My Bookings</a>
+            <a href="#tracking">Tracking</a>
+            <a href="#reviews">Reviews</a>
+        </nav>
+
+        <select id="role" onchange="changeRole()">
+            <option value="Customer">Customer</option>
+            <option value="Admin">Admin</option>
+            <option value="Driver">Driver</option>
+        </select>
+    </header>
+
+    <div id="notice" class="notice hidden"></div>
+
+    <!-- CUSTOMER HOME -->
+
+    <div id="customerHome">
+
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>Find Your Perfect <span>Ride.</span></h1>
+
+                <p>
+                    Book your favourite car online.
+                    Enjoy comfortable, safe and affordable journeys.
+                </p>
+
+                <a href="#cars">
+                    <button>Explore Cars →</button>
+                </a>
+            </div>
+        </section>
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+            <input type="text" id="searchCar" placeholder="Search your favourite car..." oninput="showCars()">
+
+            <select id="filterCar" onchange="showCars()">
+                <option value="All">All Categories</option>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Luxury">Luxury</option>
+                <option value="Economy">Economy</option>
+            </select>
+
+            <button onclick="showCars()">Search Car</button>
+        </div>
+
+        <section id="cars">
+
+            <div class="section-title">
+                <h2>Our Available Cars</h2>
+                <p>Choose your favourite vehicle</p>
+            </div>
+
+            <div class="car-container" id="carContainer"></div>
+
+        </section>
+
+        <section style="background:#101b35;color:white;">
+            <div class="section-title">
+                <h2>Why Choose DriveNow?</h2>
+            </div>
+
+            <div class="car-container">
+                <div>
+                    <h3>Easy Booking</h3>
+                    <p>Book your car online in simple steps.</p>
+                </div>
+
+                <div>
+                    <h3>GPS Tracking</h3>
+                    <p>See shared driver location on a map.</p>
+                </div>
+
+                <div>
+                    <h3>Customer Support</h3>
+                    <p>Get help with your bookings.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- BOOKING FORM -->
+
+    <section id="booking">
+        <div class="panel">
+
+            <h2>Book Your Car</h2>
+
+            <form class="booking-form" id="bookingForm">
+
+                <label>Full Name</label>
+                <input type="text" id="customerName" placeholder="Enter your full name" required>
+
+                <label>Phone Number</label>
+                <input type="tel" id="phone" placeholder="03XXXXXXXXX" required>
+
+                <label>Select Car</label>
+                <select id="bookingCar" required></select>
+
+                <label>Pickup Location</label>
+                <input type="text" id="pickup" placeholder="Enter pickup location" required>
+
+                <label>Destination</label>
+                <input type="text" id="destination" placeholder="Enter destination" required>
+
+                <div class="form-grid">
+                    <div>
+                        <label>Pickup Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+
+                    <div>
+                        <label>Return Date</label>
+                        <input type="date" id="returnDate" required>
+                    </div>
+                </div>
+
+                <label>Booking Type</label>
+                <select id="service">
+                    <option>With Driver</option>
+                    <option>Self Drive</option>
+                </select>
+
+                <label>Payment Method</label>
+                <select id="payment">
+                    <option>Cash on Pickup</option>
+                    <option>Online Payment (Demo)</option>
+                </select>
+
+                <button type="submit">Confirm Booking</button>
+
+            </form>
+
+        </div>
+    </section>
+
+    <!-- BOOKING HISTORY -->
+
+    <section id="history">
+        <div class="panel">
+
+            <h2>My Bookings</h2>
+            <div id="bookingHistory">
+                <p>No bookings yet.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ADMIN DASHBOARD -->
+
+    <section id="adminDashboard" class="hidden">
+
+        <div class="panel">
+
+            <h2>Admin Dashboard</h2>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h3 id="totalCars">0</h3>
+                    <p>Total Cars</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3 id="totalBookings">0</h3>
+                    <p>Total Bookings</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3 id="pendingBookings">0</h3>
+                    <p>Pending</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3 id="approvedBookings">0</h3>
+                    <p>Approved</p>
+                </div>
+            </div>
+
+            <h2>Add New Car</h2>
+
+            <form id="addCarForm" class="booking-form">
+
+                <input type="text" id="newCarName" placeholder="Car Name" required>
+
+                <select id="newCarType">
+                    <option>Sedan</option>
+                    <option>SUV</option>
+                    <option>Luxury</option>
+                    <option>Economy</option>
+                </select>
+
+                <input type="number" id="newCarPrice" placeholder="Rent Per Day" min="1" required>
+
+                <input type="number" id="newCarSeats" placeholder="Number of Seats" min="1" required>
+
+                <input type="url" id="newCarImage" placeholder="Car Image URL">
+
+                <button type="submit">Add Car</button>
+
+            </form>
+
+            <h2>Manage Cars</h2>
+            <div id="manageCars"></div>
+
+            <h2>Manage All Bookings</h2>
+            <div id="adminBookings"></div>
+
+        </div>
+    </section>
+
+    <!-- DRIVER DASHBOARD -->
+
+    <section id="driverDashboard" class="hidden">
+        <div class="panel">
+
+            <h2>Driver Dashboard</h2>
+            <p>View approved trips and manage trip status.</p>
+
+            <div id="driverBookings"></div>
+
+        </div>
+    </section>
+
+    <!-- GPS TRACKING -->
+
+    <section id="tracking">
+        <div class="panel">
+
+            <h2>GPS Location Tracking</h2>
+
+            <p>
+                Allow location permission to detect your device's current location.
+            </p>
+
+            <br>
+
+            <button onclick="detectLocation()">
+                Detect My Location
+            </button>
+
+            <div id="locationInfo" class="map-box"></div>
+
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+
+    <section id="reviews">
+        <div class="panel">
+
+            <h2>Customer Reviews</h2>
+
+            <form id="reviewForm" class="booking-form">
+
+                <input type="text" id="reviewName" placeholder="Your Name" required>
+
+                <select id="rating">
+                    <option value="5">★★★★★ Excellent</option>
+                    <option value="4">★★★★ Very Good</option>
+                    <option value="3">★★★ Good</option>
+                    <option value="2">★★ Fair</option>
+                    <option value="1">★ Poor</option>
+                </select>
+
+                <textarea id="reviewText" placeholder="Write your review..." required></textarea>
+
+                <button type="submit">Submit Review</button>
+
+            </form>
+
+            <div id="reviewList"></div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+        <h2>Drive<span>Now.</span></h2>
+        <p>Your Journey, Our Responsibility.</p>
+        <p>© 2026 DriveNow. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+
+        /* CAR DATA */
+
+        let cars = [
+            {
+                id: 1,
+                name: "Toyota Corolla",
+                type: "Sedan",
+                price: 5000,
+                seats: 5,
+                image: "https://images.unsplash.com/photo-1623869675781-80aa31012a5a?w=700"
+            },
+            {
+                id: 2,
+                name: "Honda Civic",
+                type: "Luxury",
+                price: 7000,
+                seats: 5,
+                image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=700"
+            },
+            {
+                id: 3,
+                name: "Toyota Fortuner",
+                type: "SUV",
+                price: 12000,
+                seats: 7,
+                image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=700"
+            },
+            {
+                id: 4,
+                name: "Suzuki Alto",
+                type: "Economy",
+                price: 3000,
+                seats: 4,
+                image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700"
+            },
+            {
+                id: 5,
+                name: "Toyota Prado",
+                type: "SUV",
+                price: 15000,
+                seats: 7,
+                image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=700"
+            },
+            {
+                id: 6,
+                name: "Kia Sportage",
+                type: "SUV",
+                price: 9000,
+                seats: 5,
+                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700"
+            }
+        ];
+
+        let bookings = [];
+        let reviews = [];
+
+        /* MESSAGE */
+
+        function showMessage(message) {
+            const notice = document.getElementById("notice");
+
+            notice.innerText = message;
+            notice.classList.remove("hidden");
+
+            setTimeout(() => {
+                notice.classList.add("hidden");
+            }, 3000);
+        }
+
+        /* SHOW CARS */
+
+        function showCars() {
+
+            const container = document.getElementById("carContainer");
+
+            const search = document.getElementById("searchCar")
+                .value.toLowerCase();
+
+            const filter = document.getElementById("filterCar").value;
+
+            container.innerHTML = "";
+
+            const filteredCars = cars.filter(car =>
+                car.name.toLowerCase().includes(search) &&
+                (filter === "All" || car.type === filter)
+            );
+
+            filteredCars.forEach(car => {
+
+                container.innerHTML += `
+        <div class="car-card">
+
+            <img src="${car.image}" alt="${car.name}">
+
+            <div class="car-info">
+
+                <h3>${car.name}</h3>
+
+                <p>${car.type} | ${car.seats} Seats</p>
+
+                <div class="car-bottom">
+
+                    <span class="price">
+                    Rs. ${car.price}/day
+                    </span>
+
+                    <button onclick="selectCar(${car.id})">
+                    Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+        `;
+            });
+
+            updateBookingCars();
+        }
+
+        /* CAR SELECT */
+
+        function selectCar(id) {
+
+            const car = cars.find(c => c.id === id);
+
+            document.getElementById("bookingCar").value = car.id;
+
+            document.getElementById("booking")
+                .scrollIntoView({ behavior: "smooth" });
+
+        }
+
+        /* BOOKING CAR OPTIONS */
+
+        function updateBookingCars() {
+
+            const select = document.getElementById("bookingCar");
+
+            const previous = select.value;
+
+            select.innerHTML = "";
+
+            cars.forEach(car => {
+                select.innerHTML += `
+        <option value="${car.id}">
+        ${car.name} - Rs. ${car.price}/day
+        </option>
+        `;
+            });
+
+            if (cars.some(car => String(car.id) === previous)) {
+                select.value = previous;
+            }
+        }
+
+        /* BOOKING FORM */
+
+        document.getElementById("bookingForm")
+            .addEventListener("submit", function (e) {
+
+                e.preventDefault();
+
+                const carId = Number(
+                    document.getElementById("bookingCar").value
+                );
+
+                const car = cars.find(c => c.id === carId);
+
+                if (!car) {
+                    showMessage("Please select a valid car.");
+                    return;
+                }
+
+                const start = document.getElementById("date").value;
+                const end = document.getElementById("returnDate").value;
+
+                const today = new Date().toISOString().split("T")[0];
+
+                if (start < today || end < start) {
+                    showMessage("Please select valid booking dates.");
+                    return;
+                }
+
+                const newBooking = {
+
+                    id: Date.now(),
+
+                    name: document.getElementById("customerName").value,
+
+                    phone: document.getElementById("phone").value,
+
+                    car: car.name,
+
+                    carId: car.id,
+
+                    price: car.price,
+
+                    pickup: document.getElementById("pickup").value,
+
+                    destination: document.getElementById("destination").value,
+
+                    date: start,
+
+                    returnDate: end,
+
+                    service: document.getElementById("service").value,
+
+                    payment: document.getElementById("payment").value,
+
+                    status: "Pending"
+
+                };
+
+                bookings.push(newBooking);
+
+                this.reset();
+
+                renderBookings();
+                showCars();
+                updateAdmin();
+
+                showMessage("Booking request submitted successfully!");
+
+                document.getElementById("history")
+                    .scrollIntoView({ behavior: "smooth" });
+
+            });
+
+        /* BOOKING HISTORY */
+
+        function renderBookings() {
+
+            const history = document.getElementById("bookingHistory");
+
+            history.innerHTML = "";
+
+            if (bookings.length === 0) {
+                history.innerHTML = "<p>No bookings yet.</p>";
+                return;
+            }
+
+            bookings.forEach(b => {
+
+                history.innerHTML += `
+        <div class="booking-card">
+
+            <h3>${b.car}</h3>
+
+            <p>Customer: ${b.name}</p>
+            <p>Phone: ${b.phone}</p>
+            <p>Pickup: ${b.pickup}</p>
+            <p>Destination: ${b.destination}</p>
+            <p>Dates: ${b.date} to ${b.returnDate}</p>
+            <p>Service: ${b.service}</p>
+            <p>Payment: ${b.payment}</p>
+
+            <strong>Status: ${b.status}</strong>
+
+            ${b.status === "Pending" ? `
+                <br>
+                <button class="cancel"
+                onclick="cancelBooking(${b.id})">
+                Cancel Booking
+                </button>
+            ` : ""}
+
+        </div>
+        `;
+            });
+
+        }
+
+        /* CANCEL BOOKING */
+
+        function cancelBooking(id) {
+
+            const booking = bookings.find(b => b.id === id);
+
+            if (!booking || booking.status !== "Pending") return;
+
+            booking.status = "Cancelled";
+
+            renderBookings();
+            updateAdmin();
+            showMessage("Booking cancelled.");
+        }
+
+        /* ADMIN APPROVE / REJECT */
+
+        function adminManageBookings() {
+
+            const container = document.getElementById("adminBookings");
+
+            container.innerHTML = "";
+
+            bookings.forEach(b => {
+
+                container.innerHTML += `
+        <div class="booking-card">
+
+            <h3>${b.car}</h3>
+
+            <p>Customer: ${b.name}</p>
+            <p>Phone: ${b.phone}</p>
+            <p>Pickup: ${b.pickup}</p>
+            <p>Destination: ${b.destination}</p>
+
+            <strong>Status: ${b.status}</strong>
+
+            ${b.status === "Pending" ? `
+
+                <br>
+
+                <button class="approve"
+                onclick="updateStatus(${b.id},'Approved')">
+                Approve
+                </button>
+
+                <button class="reject"
+                onclick="updateStatus(${b.id},'Rejected')">
+                Reject
+                </button>
+
+            ` : ""}
+
+        </div>
+        `;
+
+            });
+
+        }
+
+        /* UPDATE STATUS */
+
+        function updateStatus(id, status) {
+
+            const booking = bookings.find(b => b.id === id);
+
+            if (!booking || booking.status !== "Pending") return;
+
+            booking.status = status;
+
+            renderBookings();
+            adminManageBookings();
+            driverBookings();
+            updateAdmin();
+
+            showMessage("Booking " + status);
+        }
+
+        /* ADMIN DASHBOARD */
+
+        function updateAdmin() {
+
+            document.getElementById("totalCars").innerText = cars.length;
+
+            document.getElementById("totalBookings").innerText = bookings.length;
+
+            document.getElementById("pendingBookings").innerText =
+                bookings.filter(b => b.status === "Pending").length;
+
+            document.getElementById("approvedBookings").innerText =
+                bookings.filter(b => b.status === "Approved").length;
+
+            adminManageBookings();
+            manageCars();
+            driverBookings();
+        }
+
+        /* ADD CAR */
+
+        document.getElementById("addCarForm")
+            .addEventListener("submit", function (e) {
+
+                e.preventDefault();
+
+                const newCar = {
+
+                    id: Date.now(),
+
+                    name: document.getElementById("newCarName").value,
+
+                    type: document.getElementById("newCarType").value,
+
+                    price: Number(document.getElementById("newCarPrice").value),
+
+                    seats: Number(document.getElementById("newCarSeats").value),
+
+                    image: document.getElementById("newCarImage").value ||
+                        "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=700"
+
+                };
+
+                cars.push(newCar);
+
+                this.reset();
+
+                showCars();
+                updateAdmin();
+
+                showMessage("New car added successfully!");
+
+            });
+
+        /* MANAGE CARS */
+
+        function manageCars() {
+
+            const container = document.getElementById("manageCars");
+
+            container.innerHTML = "";
+
+            cars.forEach(car => {
+
+                container.innerHTML += `
+        <div class="booking-card">
+
+            <h3>${car.name}</h3>
+
+            <p>Price: Rs. ${car.price}/day</p>
+
+            <button class="cancel"
+            onclick="deleteCar(${car.id})">
+            Delete Car
+            </button>
+
+        </div>
+        `;
+
+            });
+
+        }
+
+        /* DELETE CAR */
+
+        function deleteCar(id) {
+
+            if (bookings.some(b => b.carId === id &&
+                ["Pending", "Approved", "On Trip"].includes(b.status))) {
+                showMessage("This car has an active booking.");
+                return;
+            }
+
+            cars = cars.filter(c => c.id !== id);
+
+            showCars();
+            updateAdmin();
+
+            showMessage("Car deleted successfully.");
+
+        }
+
+        /* DRIVER DASHBOARD */
+
+        function driverBookings() {
+
+            const container = document.getElementById("driverBookings");
+
+            container.innerHTML = "";
+
+            const assigned = bookings.filter(b =>
+                ["Approved", "On Trip"].includes(b.status)
+            );
+
+            if (assigned.length === 0) {
+                container.innerHTML = "<p>No assigned trips.</p>";
+                return;
+            }
+
+            assigned.forEach(b => {
+
+                container.innerHTML += `
+        <div class="booking-card">
+
+            <h3>${b.car}</h3>
+
+            <p>Customer: ${b.name}</p>
+            <p>Phone: ${b.phone}</p>
+            <p>Pickup: ${b.pickup}</p>
+            <p>Destination: ${b.destination}</p>
+
+            <strong>Status: ${b.status}</strong>
+
+            ${b.status === "Approved" ? `
+                <br>
+                <button onclick="driverUpdate(${b.id},'On Trip')">
+                Start Trip
+                </button>
+            ` : ""}
+
+            ${b.status === "On Trip" ? `
+                <br>
+                <button onclick="driverUpdate(${b.id},'Completed')">
+                Complete Trip
+                </button>
+            ` : ""}
+
+        </div>
+        `;
+
+            });
+
+        }
+
+        /* DRIVER TRIP UPDATE */
+
+        function driverUpdate(id, status) {
+
+            const booking = bookings.find(b => b.id === id);
+
+            if (!booking) return;
+
+            booking.status = status;
+
+            renderBookings();
+            updateAdmin();
+
+            showMessage("Trip status: " + status);
+
+        }
+
+        /* GPS DETECTION */
+
+        function detectLocation() {
+
+            const info = document.getElementById("locationInfo");
+
+            if (!navigator.geolocation) {
+
+                info.innerHTML = "GPS not supported by browser.";
+                return;
+
+            }
+
+            info.innerHTML = "Detecting your location...";
+
+            navigator.geolocation.getCurrentPosition(
+
+                position => {
+
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    info.innerHTML = `
+
+                <h3>Location Detected</h3>
+
+                <p>Latitude: ${lat}</p>
+
+                <p>Longitude: ${lng}</p>
+
+                <iframe
+                src="https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.01}%2C${lat - 0.01}%2C${lng + 0.01}%2C${lat + 0.01}&layer=mapnik&marker=${lat}%2C${lng}">
+                </iframe>
+
+                <a target="_blank" rel="noopener"
+                href="https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}">
+                Open Full Map
+                </a>
+
+            `;
+
+                },
+
+                error => {
+
+                    info.innerHTML =
+                        "Location permission denied or unavailable.";
+
+                },
+
+                { enableHighAccuracy: true }
+
+            );
+
+        }
+
+        /* REVIEWS */
+
+        document.getElementById("reviewForm")
+            .addEventListener("submit", function (e) {
+
+                e.preventDefault();
+
+                const name = document.getElementById("reviewName").value;
+
+                const rating = document.getElementById("rating").value;
+
+                const text = document.getElementById("reviewText").value;
+
+                reviews.push({ name, rating, text });
+
+                showReviews();
+
+                this.reset();
+
+                showMessage("Review submitted!");
+
+            });
+
+        function showReviews() {
+
+            const list = document.getElementById("reviewList");
+
+            list.innerHTML = "";
+
+            reviews.forEach(review => {
+
+                list.innerHTML += `
+
+            <div class="review-card">
+
+                <h3>${review.name}</h3>
+
+                <p>${"★".repeat(Number(review.rating))}</p>
+
+                <p>${review.text}</p>
+
+            </div>
+
+        `;
+
+            });
+
+        }
+
+        /* ROLE SWITCH */
+
+        function changeRole() {
+
+            const role = document.getElementById("role").value;
+
+            document.getElementById("customerHome").classList.add("hidden");
+
+            document.getElementById("booking").classList.add("hidden");
+
+            document.getElementById("history").classList.add("hidden");
+
+            document.getElementById("adminDashboard").classList.add("hidden");
+
+            document.getElementById("driverDashboard").classList.add("hidden");
+
+            document.getElementById("tracking").classList.add("hidden");
+
+            document.getElementById("reviews").classList.add("hidden");
+
+            if (role === "Customer") {
+
+                document.getElementById("customerHome").classList.remove("hidden");
+                document.getElementById("booking").classList.remove("hidden");
+                document.getElementById("history").classList.remove("hidden");
+                document.getElementById("tracking").classList.remove("hidden");
+                document.getElementById("reviews").classList.remove("hidden");
+
+            }
+
+            if (role === "Admin") {
+
+                document.getElementById("adminDashboard").classList.remove("hidden");
+                updateAdmin();
+
+            }
+
+            if (role === "Driver") {
+
+                document.getElementById("driverDashboard").classList.remove("hidden");
+                document.getElementById("tracking").classList.remove("hidden");
+                driverBookings();
+
+            }
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+
+        }
+
+        /* INITIALIZE */
+
+        showCars();
+
+        updateAdmin();
+
+    </script>
+
+</body>
+
+</html>
